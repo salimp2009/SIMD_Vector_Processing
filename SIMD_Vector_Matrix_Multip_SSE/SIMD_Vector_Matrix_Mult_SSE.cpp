@@ -12,7 +12,7 @@ union Mat44
 	__m128 row[4]; // 4 SSE vectors to represent 4 rows
 };
 
-__m128 MuVecMat_sse(const __m128& v, const Mat44& M)
+__m128 MulVecMat_sse(const __m128& v, const Mat44& M)
 {
 	//first transpose v using shuffle masks
 	__m128 vX = _mm_shuffle_ps(v, v, 0x00); // (vx, vx, vx, vx)
@@ -31,10 +31,10 @@ __m128 MuVecMat_sse(const __m128& v, const Mat44& M)
 // Matrix-Matrix Multilication using SSE
 void MulMatMat_sse(Mat44& R, const Mat44& A, const Mat44& B)
 {
-	R.row[0] = MuVecMat_sse(A.row[0], B);
-	R.row[1] = MuVecMat_sse(A.row[1], B);
-	R.row[2] = MuVecMat_sse(A.row[2], B);
-	R.row[3] = MuVecMat_sse(A.row[3], B);
+	R.row[0] = MulVecMat_sse(A.row[0], B);
+	R.row[1] = MulVecMat_sse(A.row[1], B);
+	R.row[2] = MulVecMat_sse(A.row[2], B);
+	R.row[3] = MulVecMat_sse(A.row[3], B);
 }
 
 int main()
